@@ -12,7 +12,20 @@ When the program is ran, a menu will pop up displaying a list of actions listed 
 6. Exit
 
 #### Classes
-As currently constructed, the prograam will feature two classes. The main class will 
+The prograam will feature two classes:  
+-  The main class will connect to the database and provide a list of menu options for the user to input. The
+-  The second class will contant all the methods for these processes.
+
+#### MySQL Tables
+- Customer Information
+| Customer ID   | Name      | Phone Number   | Email            | Loyalty Rewards   |
+|---------------|-----------|----------------|------------------|-------------------|
+| 1             | John Doe  | 123-456-7890   | john@example.com | Yes               |
+| 2             | Jane Smith| 987-654-3210   | jane@example.com | No                |
+| 3             | Alice Lee | 555-555-5555   | alice@example.com| Yes               |
+
+- 
+
 
 ### Technologies Used
 - [x] Java is the application that the user interacts with.
