@@ -17,4 +17,3 @@ When the program is ran, a menu will pop up displaying a list of actions listed 
 - [x] MySQL is used as the database system that houses all the shop's information. The Java application will work in direct contact with this system using the language SQL.  
 
 
-#### Features
