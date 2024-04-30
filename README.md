@@ -54,4 +54,4 @@ The prograam will feature two classes:
 - [x] MySQL is used as the database system that houses all the shop's information. The Java application will work in direct contact with this system using the language SQL.  
 
 
-#### Note: This program is still being worked on and edited. This is just the current concepts 
+#### Note: This program is still being worked on and edited. This is just the current framework. 
