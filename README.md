@@ -14,7 +14,7 @@ When the program is ran, a menu will pop up displaying a list of actions listed 
 #### Classes
 The prograam will feature two classes:  
 -  The main class will connect to the database and provide a list of menu options for the user to input. The
--  The second class will contant all the methods for these processes.
+-  The second class will contain all the methods to perform those operation. This second class will be called by the main tasks to perform these operations based on menu selections by the user. 
 
 #### MySQL Tables
 **Customer Info**
