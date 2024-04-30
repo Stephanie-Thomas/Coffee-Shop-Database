@@ -17,14 +17,35 @@ The prograam will feature two classes:
 -  The second class will contant all the methods for these processes.
 
 #### MySQL Tables
-- Customer Information
-| Customer ID   | Name      | Phone Number   | Email            | Loyalty Rewards   |
-|---------------|-----------|----------------|------------------|-------------------|
-| 1             | John Doe  | 123-456-7890   | john@example.com | Yes               |
-| 2             | Jane Smith| 987-654-3210   | jane@example.com | No                |
-| 3             | Alice Lee | 555-555-5555   | alice@example.com| Yes               |
+**Customer Info**
+| Customer ID | Name       | Phone Number  | Email            | Loyalty Rewards (Points) |
+|-------------|------------|---------------|------------------|---------------------------|
+| 1           | John Doe   | 123-456-7890  | john@example.com | 100                       |
+| 2           | Jane Smith | 987-654-3210  | jane@example.com | 0                         |
+| 3           | Alice Lee  | 555-555-5555  | alice@example.com| 250                       |
 
-- 
+**Employee info**
+| Employee ID | Name          | Phone Number  | Email            |
+|-------------|---------------|---------------|------------------|
+| 001         | John Doe      | 123-456-7890  | john@example.com |
+| 002         | Jane Smith    | 987-654-3210  | jane@example.com |
+| 003         | Alice Lee     | 555-555-5555  | alice@example.com|
+
+**Inventory**
+| Product Number | Brand     | Description                    | Quantity | Price  | Distributor      |
+|----------------|-----------|--------------------------------|----------|--------|------------------|
+| 001            | Starbucks | Colombian Medium Roast Coffee | 100      | $10.99 | ABC Distributors |
+| 002            | Folgers   | Classic Roast Ground Coffee   | 50       | $8.99  | XYZ Distributors |
+| 003            | Lipton    | Green Tea Bags                 | 75       | $4.49  | DEF Distributors |
+
+**Customer Orders**
+| Order ID | Customer Name | Date       | Product         | Quantity | Total Amount ($) |
+|----------|---------------|------------|-----------------|----------|------------------|
+| 001      | John Doe      | 2024-04-23 | Latte           | 2        | 9.98             |
+| 002      | Jane Smith    | 2024-04-24 | Cappuccino      | 1        | 4.99             |
+| 003      | Alice Lee     | 2024-04-25 | Espresso        | 3        | 14.97            |
+| 004      | Bob Johnson   | 2024-04-26 | Americano       | 2        | 9.98             |
+| 005      | John Doe      | 2024-04-27 | Iced Coffee     | 1        | 4.99             |
 
 
 ### Technologies Used
