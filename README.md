@@ -18,7 +18,7 @@ The prograam will feature two classes:
 
 #### MySQL Tables
 **Customer Info**
-| Customer ID | Name       | Phone Number  | Email            | Loyalty Rewards (Points) |
+| Customer ID | Name       | Phone Number  | Email            | cust_loyalty |
 |-------------|------------|---------------|------------------|---------------------------|
 | 1           | John Doe   | 123-456-7890  | john@example.com | 100                       |
 | 2           | Jane Smith | 987-654-3210  | jane@example.com | 0                         |
