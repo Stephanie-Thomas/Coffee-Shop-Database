@@ -1,7 +1,7 @@
 # Coffee Shop Management
 The Coffee Shop Management program is designed to help streamline the management process for a local coffee shop owner. This program integrates various functionalities to manage employee scheduling, customer information, inventory, and customer orders efficiently. 
 
-#### Process
+### Process
 When the program is ran, a menu will pop up displaying a list of actions listed from 1-6. The user just type into the keyboard the operation they want to perform and another prompt will show up to guide then through that process. The user shoudldn't engage with the code at all. 
 
 1. Employee Management: 1. Add new employees 2.remove employees 3.update employee details 4.employee schedule 
@@ -11,9 +11,13 @@ When the program is ran, a menu will pop up displaying a list of actions listed 
 5. Settings: 1.Configure loyalty program thresholds 2.Set up tax rates 
 6. Exit
 
-#### Technologies Used
+#### Classes
+As currently constructed, the prograam will feature two classes. The main class will 
+
+### Technologies Used
 - [x] Java is the application that the user interacts with.
 - [x] SQL is the language used to communicate and
 - [x] MySQL is used as the database system that houses all the shop's information. The Java application will work in direct contact with this system using the language SQL.  
 
 
+#### Note: This program is still being worked on and edited. This is just the current concepts 
