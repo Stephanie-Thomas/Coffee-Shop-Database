@@ -28,5 +28,5 @@ To use the application, follow these steps:
 Exit: Choose the "Exit" option from the main menu when you're finished using the application.
 #### Technologies Used
 - [x] Python
-- [x] SQL is the language used to communicate and 
+- [x] SQL is the language used to communicate and interact with the database
 - [x] MySQL is used as the database system that house all the shops information. The Python application will work in direct contact with this system using the language SQL.  
