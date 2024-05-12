@@ -14,7 +14,7 @@ The program offers the following features:
 
 **Order Management**: Facilitates order processing by allowing users to place new orders, cancel orders, update orders, view order history, and search orders.
 
-Usage
+**Usage**
 To use the application, follow these steps:
 
 1. Launch the Program: Run the Python script to start the application.
@@ -26,6 +26,12 @@ To use the application, follow these steps:
 4. Perform Actions: Once inside a management menu, follow the prompts to perform various actions such as adding, removing, updating, viewing, or searching records.
 
 Exit: Choose the "Exit" option from the main menu when you're finished using the application.
+
+#### SQL 
+- Four tables were already populated into the database before hand. All other data will be added by the owner. 
+![Customer_data_base](https://github.com/Stephanie-Thomas/Coffee-Shop-Database/assets/107421799/cad1ce6e-6b55-4ebe-bc42-b415587a9172)
+
+
 #### Technologies Used
 - [x] Python
 - [x] SQL is the language used to communicate and interact with the database
