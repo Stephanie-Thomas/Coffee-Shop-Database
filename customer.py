@@ -1,4 +1,10 @@
+import mysql.connector
+
 class customer:
+    def __init__(self, db_connection):
+        self.db_connection = db_connection
+
+    
     def add_new_customer(self):
         print("Adding new customer")
 

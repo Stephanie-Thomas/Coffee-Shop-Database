@@ -1,9 +1,11 @@
 import mysql.connector
 
-class employee:
+
+class Employee:
     def __init__(self, db_connection):
         self.db_connection = db_connection
-        cursor = self.db_connection.cursor()
+        
+
     
     def add_new_employee(self):
         cursor = self.db_connection.cursor()
@@ -30,3 +32,5 @@ class employee:
     
     def search_employees(self):
         print("Searching employees")
+
+
