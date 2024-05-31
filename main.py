@@ -54,26 +54,83 @@ def Add():
 
         user_option = int(input("Enter your choice (1-4): "))
         if user_option == 1:
-            customer_no = int(input("Enter the customer number: "))
-            first_name =  input("Enter the first name: ")
-            last_name = input("Enter the last name: ")
-            phone_num = int(input("Enter the phone number: "))
-            email = input("Enter the email: ")
+            while True:
+                customer_no = int(input("Enter the customer number: "))
+                first_name = input("Enter the first name: ")
+                last_name = input("Enter the last name: ")
+                phone_num = int(input("Enter the phone number: ")) 
+                email = input("Enter the email: ")
 
-            mycursor.execute("INSERT INTO customer_info (customer_No, first_name, last_name, phone_num, email) VALUES (%s,%s, %s, %s, %s)", (customer_no, first_name, last_name, phone_num, email))
+                mycursor.execute("INSERT INTO customer_info (customer_No, first_name, last_name, phone_num, email) VALUES (%s, %s, %s, %s, %s)",
+                (customer_no, first_name, last_name, phone_num, email))
+                db.commit()
+
+                print("\nHere's the new dataset: ")
+
+                mycursor.execute("SELECT * FROM customer_info")
+
+                for x in mycursor:
+                    print(x)
+
+                 
+                continue_input = input("Do you want to add another customer? (yes/no): ").strip().lower()
+                if continue_input != 'yes':
+                    break
+
+            # Make sure to close the cursor and the database connection if no longer needed
+            mycursor.close()
+            db.close()
+
+        elif user_option == 2:
+            while True:
+                employee_id = int(input("Enter an employee id: "))
+                E_first_name = input("Enter the employee's first name: ")
+                E_last_name = input("Enter the last name: ")
+                hourly_pay = float(input("Enter the hourly pay: "))
+                title = input("What is their title: ")
+
+                mycursor.execute("INSERT INTO employee_info (employee_id, first_name, last_name, hourly_pay, title) VALUES (%s, %s, %s, %s, %s)",
+                (employee_id, E_first_name, E_last_name, hourly_pay, title))
+                
+                db.commit()
+
+                print("\nHere's the new dataset: ")
+
+                mycursor.execute("SELECT * FROM employee_info")
+
+                for x in mycursor:
+                  print(x)
+
+                 
+                continue_input = input("Do you want to add another employee? (yes/no): ").strip().lower()
+                if continue_input != 'yes':
+                        break
+
+            
+            mycursor.close()
+            db.close()
+        elif user_option == 3:
+            product_number = int(input("Enter the product number: "))
+            brand = input("Enter the product's brand: ")
+            quanity = int(input("Enter the current quanity: "))
+            price = float(input("Enter the bulk cost: "))
+            supplier= input("Enter supplier's name: ")
+            
+            mycursor.execute("INSERT INTO inventory (product_number, brand, quantity, price, supplier) VALUES (%s,%s, %s, %s, %s)", (product_number, brand, quanity, price, supplier))
             db.commit
 
             print("\nHere's the new dataset: ")
 
-            mycursor.execute("Select *  FROM customer_info")
+            mycursor.execute("Select *  FROM inventory")
 
             for x in mycursor:
                 print(x)
             break
-        elif user_option == 2:
-            employee_id = int(input("Enter an employee id: "))
-            E_first_name = input("Enter the employee's first name: ")
-            E_last_name = input("Enter the last name: ")
+
+        elif user_option == 4:
+            order_number= int(input("Enter an employee id: "))
+            customer_no = input("Enter the employee's first name: ")
+            employee_id = input("Enter the last name: ")
             hourly_pay = int(input("Enter the hourly pay: "))
             title = input("What their title: ")
             
