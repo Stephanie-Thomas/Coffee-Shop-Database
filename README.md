@@ -35,4 +35,4 @@ Exit: Choose the "Exit" option from the main menu when you're finished using the
 #### Technologies Used
 - [x] Python & mysql.connector
 - [x] SQL is the language used to communicate and interact with the database
-- [x] 
+
