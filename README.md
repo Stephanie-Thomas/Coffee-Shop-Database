@@ -33,6 +33,6 @@ Exit: Choose the "Exit" option from the main menu when you're finished using the
 
 
 #### Technologies Used
-- [x] Python
+- [x] Python & mysql.connector
 - [x] SQL is the language used to communicate and interact with the database
-- [x] MySQL is used as the database system that house all the shops information. The Python application will work in direct contact with this system using the language SQL.  
+- [x] 
