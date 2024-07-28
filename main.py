@@ -1,5 +1,4 @@
 import mysql.connector
-
      
 host = input("Enter the host name you want to connect to: ")
 user_name = input("Enter the user name: ")
@@ -32,122 +31,253 @@ def display_menu():
         elif user_option == 2:
             Remove()
         elif user_option == 3:
-            Update()
+            Update()  
         elif user_option == 4:
-           View()
+            View()
         elif user_option == 5:
             Search()
         elif user_option == 6:
-            print("Exiting the program")
             break
         else:
             print("Invalid choice. Please enter a number from 1 to 6.")
 
 
+
 def Add():
+    tables = {
+        1: ("customer_info", ["customer_No", "first_name", "last_name", "phone_num", "email"]),
+        2: ("employee_info", ["employee_id", "first_name", "last_name", "hourly_pay", "title"]),
+        3: ("inventory", ["product_number", "brand", "quantity", "price", "supplier"]),
+        4: ("orders", ["order_number", "customer_No", "employee_id", "order_date", "total_amount"])
+    }
+
+    print("What table would you like to add to:")
+    for key, value in tables.items():
+        print(f"{key}. Add to {value[0]}")
+
     while True:
-        print("What table would you like to add to:")
-        print("\n1.Add A Customer")
-        print("2.Add An Employee")
-        print("3.Add something to Inventory")
-        print("4.Add an item to orders")
+        try:
+            user_option = int(input("\nEnter your choice (1-4): "))
+            if user_option not in tables:
+                print("Invalid choice. Please enter a number from 1 to 4.")
+                continue
 
-        user_option = int(input("Enter your choice (1-4): "))
-        if user_option == 1:
+            table_name, columns = tables[user_option]
+            
             while True:
-                customer_no = int(input("Enter the customer number: "))
-                first_name = input("Enter the first name: ")
-                last_name = input("Enter the last name: ")
-                phone_num = int(input("Enter the phone number: ")) 
-                email = input("Enter the email: ")
+                new_entry = {}
+                for column in columns:
+                    if column in ['customer_No', 'employee_id', 'product_number', 'order_number', 'quantity']:
+                        new_entry[column] = int(input(f"Enter the {column}: "))
+                    elif column in ['hourly_pay', 'price', 'total_amount']:
+                        new_entry[column] = float(input(f"Enter the {column}: "))
+                    else:
+                        new_entry[column] = input(f"Enter the {column}: ")
 
-                mycursor.execute("INSERT INTO customer_info (customer_No, first_name, last_name, phone_num, email) VALUES (%s, %s, %s, %s, %s)",
-                (customer_no, first_name, last_name, phone_num, email))
+                placeholders = ', '.join(['%s'] * len(columns))
+                query = f"INSERT INTO {table_name} ({', '.join(columns)}) VALUES ({placeholders})"
+                mycursor.execute(query, tuple(new_entry.values()))
                 db.commit()
 
-                print("\nHere's the new dataset: ")
-
-                mycursor.execute("SELECT * FROM customer_info")
-
+                print(f"\nHere's the new dataset for {table_name}:")
+                mycursor.execute(f"SELECT * FROM {table_name}")
                 for x in mycursor:
                     print(x)
 
-                 
-                continue_input = input("Do you want to add another customer? (yes/no): ").strip().lower()
+                continue_input = input(f"Do you want to add another entry to {table_name}? (yes/no): ").strip().lower()
                 if continue_input != 'yes':
                     break
 
-            # Make sure to close the cursor and the database connection if no longer needed
-            mycursor.close()
-            db.close()
+            break  # Exit the outer while loop
 
-        elif user_option == 2:
-            while True:
-                employee_id = int(input("Enter an employee id: "))
-                E_first_name = input("Enter the employee's first name: ")
-                E_last_name = input("Enter the last name: ")
-                hourly_pay = float(input("Enter the hourly pay: "))
-                title = input("What is their title: ")
+        except ValueError:
+            print("\nInvalid input. Please ensure you're entering the correct data types.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            print("Please try again.")
 
-                mycursor.execute("INSERT INTO employee_info (employee_id, first_name, last_name, hourly_pay, title) VALUES (%s, %s, %s, %s, %s)",
-                (employee_id, E_first_name, E_last_name, hourly_pay, title))
-                
-                db.commit()
+    # Close the cursor and the database connection
+    mycursor.close()
+    db.close()
+def Remove():
+    tables = {
+        1: "customer_info",
+        2: "employee_info",
+        3: "inventory",
+        4: "orders"
+    }
 
-                print("\nHere's the new dataset: ")
+    print("Which table would you like to remove from:")
+    for key, value in tables.items():
+        print(f"{key}. Remove from {value}")
 
-                mycursor.execute("SELECT * FROM employee_info")
+    while True:
+        try:
+            user_option = int(input("\nEnter your choice (1-4): "))
+            if user_option not in tables:
+                print("Invalid choice. Please enter a number from 1 to 4.")
+                continue
 
-                for x in mycursor:
-                  print(x)
+            table_name = tables[user_option]
+            id_column = input(f"Enter the ID column name for {table_name}: ")
+            id_value = input(f"Enter the {id_column} of the record to remove: ")
 
-                 
-                continue_input = input("Do you want to add another employee? (yes/no): ").strip().lower()
-                if continue_input != 'yes':
-                        break
+            query = f"DELETE FROM {table_name} WHERE {id_column} = %s"
+            mycursor.execute(query, (id_value,))
+            db.commit()
 
-            
-            mycursor.close()
-            db.close()
-        elif user_option == 3:
-            product_number = int(input("Enter the product number: "))
-            brand = input("Enter the product's brand: ")
-            quanity = int(input("Enter the current quanity: "))
-            price = float(input("Enter the bulk cost: "))
-            supplier= input("Enter supplier's name: ")
-            
-            mycursor.execute("INSERT INTO inventory (product_number, brand, quantity, price, supplier) VALUES (%s,%s, %s, %s, %s)", (product_number, brand, quanity, price, supplier))
-            db.commit
+            if mycursor.rowcount > 0:
+                print(f"Record successfully removed from {table_name}")
+            else:
+                print(f"No record found with {id_column} = {id_value}")
 
-            print("\nHere's the new dataset: ")
-
-            mycursor.execute("Select *  FROM inventory")
-
-            for x in mycursor:
-                print(x)
             break
 
-        elif user_option == 4:
-            order_number= int(input("Enter an employee id: "))
-            customer_no = input("Enter the employee's first name: ")
-            employee_id = input("Enter the last name: ")
-            hourly_pay = int(input("Enter the hourly pay: "))
-            title = input("What their title: ")
-            
-            mycursor.execute("INSERT INTO employee_info (employee_id, first_name, last_name, hourly_pay, title) VALUES (%s,%s, %s, %s, %s)", (employee_id, E_first_name, E_last_name, hourly_pay, title))
-            db.commit
+        except ValueError:
+            print("\nInvalid input. Please ensure you're entering the correct data types.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            print("Please try again.")
 
-            print("\nHere's the new dataset: ")
+def Update():
+    tables = {
+        1: "customer_info",
+        2: "employee_info",
+        3: "inventory",
+        4: "orders"
+    }
 
-            mycursor.execute("Select *  FROM customer_info")
+    print("Which table would you like to update:")
+    for key, value in tables.items():
+        print(f"{key}. Update {value}")
 
-            for x in mycursor:
-                print(x)
+    while True:
+        try:
+            user_option = int(input("\nEnter your choice (1-4): "))
+            if user_option not in tables:
+                print("Invalid choice. Please enter a number from 1 to 4.")
+                continue
+
+            table_name = tables[user_option]
+            id_column = input(f"Enter the ID column name for {table_name}: ")
+            id_value = input(f"Enter the {id_column} of the record to update: ")
+
+            mycursor.execute(f"SHOW COLUMNS FROM {table_name}")
+            columns = [column[0] for column in mycursor.fetchall() if column[0] != id_column]
+
+            print(f"Available columns to update: {', '.join(columns)}")
+            column_to_update = input("Enter the column name you want to update: ")
+            if column_to_update not in columns:
+                print("Invalid column name.")
+                continue
+
+            new_value = input(f"Enter the new value for {column_to_update}: ")
+
+            query = f"UPDATE {table_name} SET {column_to_update} = %s WHERE {id_column} = %s"
+            mycursor.execute(query, (new_value, id_value))
+            db.commit()
+
+            if mycursor.rowcount > 0:
+                print(f"Record successfully updated in {table_name}")
+            else:
+                print(f"No record found with {id_column} = {id_value}")
+
             break
-        
 
+        except ValueError:
+            print("\nInvalid input. Please ensure you're entering the correct data types.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            print("Please try again.")
 
+def View():
+    tables = {
+        1: "customer_info",
+        2: "employee_info",
+        3: "inventory",
+        4: "orders"
+    }
 
+    print("Which table would you like to view:")
+    for key, value in tables.items():
+        print(f"{key}. View {value}")
 
+    while True:
+        try:
+            user_option = int(input("\nEnter your choice (1-4): "))
+            if user_option not in tables:
+                print("Invalid choice. Please enter a number from 1 to 4.")
+                continue
+
+            table_name = tables[user_option]
+            
+            mycursor.execute(f"SELECT * FROM {table_name}")
+            results = mycursor.fetchall()
+
+            if results:
+                print(f"\nData in {table_name}:")
+                for row in results:
+                    print(row)
+            else:
+                print(f"No data found in {table_name}")
+
+            break
+
+        except ValueError:
+            print("\nInvalid input. Please enter a number.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            print("Please try again.")
+
+def Search():
+    tables = {
+        1: "customer_info",
+        2: "employee_info",
+        3: "inventory",
+        4: "orders"
+    }
+
+    print("Which table would you like to search in:")
+    for key, value in tables.items():
+        print(f"{key}. Search in {value}")
+
+    while True:
+        try:
+            user_option = int(input("\nEnter your choice (1-4): "))
+            if user_option not in tables:
+                print("Invalid choice. Please enter a number from 1 to 4.")
+                continue
+
+            table_name = tables[user_option]
+            
+            mycursor.execute(f"SHOW COLUMNS FROM {table_name}")
+            columns = [column[0] for column in mycursor.fetchall()]
+
+            print(f"Available columns to search: {', '.join(columns)}")
+            search_column = input("Enter the column name you want to search in: ")
+            if search_column not in columns:
+                print("Invalid column name.")
+                continue
+
+            search_value = input(f"Enter the value to search for in {search_column}: ")
+
+            query = f"SELECT * FROM {table_name} WHERE {search_column} LIKE %s"
+            mycursor.execute(query, (f"%{search_value}%",))
+            results = mycursor.fetchall()
+
+            if results:
+                print(f"\nSearch results in {table_name}:")
+                for row in results:
+                    print(row)
+            else:
+                print(f"No results found in {table_name} for {search_column} like '{search_value}'")
+
+            break
+
+        except ValueError:
+            print("\nInvalid input. Please ensure you're entering the correct data types.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            print("Please try again.")
 
 display_menu()
